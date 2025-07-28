@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Админка — Flarivana Candle Co.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fffaf7;
+      margin: 0;
+      padding: 2em;
+      color: #333;
+    }
+
+    h1 {
+      color: #b26b5f;
+      font-size: 1.8em;
+      margin-bottom: 1em;
+    }
+
+    form {
+      max-width: 600px;
+      background: #fff;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4em;
+      font-weight: 600;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      margin-bottom: 1em;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    input[type="file"] {
+      padding: 4px;
+    }
+
+    button {
+      background: #b26b5f;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #a55a50;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Добавить товар</h1>
+  <form id="productForm">
+    <label for="name">Название</label>
+    <input type="text" id="name" required>
+
+    <label for="description">Характеристика</label>
+    <textarea id="description" rows="2" required></textarea>
+
+    <label for="details">Состав</label>
+    <textarea id="details" rows="2" required></textarea>
+
+    <label for="price">Цена (₸)</label>
+    <input type="number" id="price" required>
+
+    <label for="category">Категория</label>
+    <select id="category" required>
+      <option value="">Выберите категорию</option>
+      <option value="ароматические">Ароматические</option>
+      <option value="декоративные">Декоративные</option>
+    </select>
+
+    <label for="images">Фото (можно несколько)</label>
+    <input type="file" id="images" accept="image/*" multiple required>
+
+    <label for="video">Видео (необязательно)</label>
+    <input type="file" id="video" accept="video/*">
+
+    <button type="submit">Сохранить</button>
+  </form>
+
+  <script src="admin.js"></script>
+</body>
+
+</html>

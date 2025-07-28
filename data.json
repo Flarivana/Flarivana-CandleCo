@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Свеча 'Ваниль'",
+    "price": 2500,
+    "image": "https://via.placeholder.com/200x150?text=Ваниль"
+  },
+  {
+    "id": 2,
+    "name": "Свеча 'Лаванда'",
+    "price": 2700,
+    "image": "https://via.placeholder.com/200x150?text=Лаванда"
+  }
+]

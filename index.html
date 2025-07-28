@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Flarivana Candle Co.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fffaf7;
+      color: #3e3e3e;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid #eee;
+      padding: 1.2em 1.5em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8em;
+      margin: 0;
+      color: #b26b5f;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav a {
+      margin-left: 15px;
+      text-decoration: none;
+      color: #b26b5f;
+      font-weight: bold;
+      font-family: 'Inter', sans-serif;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .category-filter {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .category-filter button {
+      background: #fceae6;
+      border: 2px solid #b26b5f;
+      color: #b26b5f;
+      padding: 6px 14px;
+      margin: 0 6px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+    }
+
+    .category-filter button:hover {
+      background: #b26b5f;
+      color: white;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      padding: 40px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .product h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25em;
+      margin: 0 0 8px;
+      color: #4b3e3d;
+    }
+
+    .product p {
+      margin: 0;
+      color: #6e6e6e;
+      font-size: 15px;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 50px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .socials a {
+      color: #b26b5f;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .socials a:hover {
+      color: #9e5a52;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1><img src="images/logo.png" alt="Flarivana Logo" height="40"> Flarivana Candle Co.</h1>
+    <nav>
+      <a href="#" onclick="toggleCart(true)">🛒 Корзина</a>
+      <a href="admin.html" id="admin-link" style="display:none">🔐 Админка</a>
+    </nav>
+  </header>
+
+  <div class="category-filter">
+    <button onclick="filterCategory('all')">Все</button>
+    <button onclick="filterCategory('ароматические')">Ароматические</button>
+    <button onclick="filterCategory('декоративные')">Декоративные</button>
+  </div>
+
+  <main class="main-content">
+    <div id="product-list" class="product-list"></div>
+  </main>
+
+  <footer>
+    <div class="socials">
+      <a href="https://www.instagram.com/flarivana" target="_blank">📸 Instagram</a>
+      <a href="https://t.me/Flarivana_Candle_Co" target="_blank">📢 Telegram</a>
+    </div>
+  </footer>
+
+  <!-- Корзина модалка -->
+  <div id="cart-panel"></div>
+
+  <!-- Модалка товара -->
+  <div id="modal-root"></div>
+
+  <!-- Шаблон для скриптов -->
+  <template id="product-modal-template">
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close">×</span>
+        <div class="modal-left"></div>
+        <div class="modal-right"></div>
+      </div>
+    </div>
+  </template>
+
+  <!-- Основной функционал -->
+  <script src="script.js"></script>
+</body>
+
+</html>

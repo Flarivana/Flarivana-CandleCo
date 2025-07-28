@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+<title>Flarivana candle — Админка</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Ваша корзина</h1>
+    <a href="index.html">← Назад в каталог</a>
+  </header>
+  <main>
+    <div id="cart-items"></div>
+    <div id="total"></div>
+
+    <form id="order-form">
+      <h3>Оформление заказа</h3>
+      <input type="text" id="order-name" placeholder="Ваше имя" required><br>
+      <input type="tel" id="order-phone" placeholder="Номер телефона" required><br>
+      <input type="text" id="order-city" placeholder="Город" required><br>
+      <input type="text" id="order-address" placeholder="Адрес доставки" required><br>
+      <button type="submit">Отправить заказ</button>
+    </form>
+  </main>
+
+  <script>
+    const cartItemsEl = document.getElementById('cart-items');
+    const totalEl = document.getElementById('total');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        const selected = data.filter(product => cart.includes(product.id));
+        let total = 0;
+        selected.forEach(product => {
+          total += product.price;
+          const item = document.createElement('div');
+          item.innerHTML = `
+            <h4>${product.name}</h4>
+            <p>${product.price} ₸</p>
+            <hr>
+          `;
+          cartItemsEl.appendChild(item);
+        });
+        totalEl.innerHTML = `<h3>Итого: ${total} ₸</h3>`;
+      });
+
+    document.getElementById('order-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("order-name").value.trim();
+      const phone = document.getElementById("order-phone").value.trim();
+      const city = document.getElementById("order-city").value.trim();
+      const address = document.getElementById("order-address").value.trim();
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      if (!name || !phone || !city || !address) {
+        alert("Пожалуйста, заполните все поля.");
+        return;
+      }
+
+      fetch('data.json')
+        .then(res => res.json())
+        .then(data => {
+          const selected = data.filter(p => cart.includes(p.id));
+          if (selected.length === 0) {
+            alert("Корзина пуста");
+            return;
+          }
+
+          let message = `🕯️ Новый заказ:\n`;
+          message += `👤 Имя: ${name}\n`;
+          message += `📞 Телефон: ${phone}\n`;
+          message += `🏙️ Город: ${city}\n`;
+          message += `🏡 Адрес: ${address}\n\n`;
+          message += `🛍️ Товары:\n`;
+
+          let total = 0;
+          selected.forEach(p => {
+            message += `• ${p.name} – ${p.price} ₸\n`;
+            total += p.price;
+          });
+
+          message += `\n💰 Итого: ${total} ₸`;
+
+          const whatsappUrl = `https://wa.me/77479573817?text=${encodeURIComponent(message)}`;
+          window.open(whatsappUrl, '_blank');
+
+          localStorage.removeItem('cart');
+          location.href = 'index.html';
+        });
+    });
+  </script>
+</body>
+
+</html>
