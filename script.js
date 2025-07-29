@@ -1,13 +1,15 @@
-// script.js
-
 let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+document.addEventListener("DOMContentLoaded", () => {
+  filterCategory("all");
+});
 
 function filterCategory(category) {
   const list = document.getElementById("product-list");
   list.innerHTML = "";
-  const filtered = category === "all"
-    ? products
-    : products.filter(p => p.category === category);
+
+  const filtered = category === "all" ? products : products.filter(p => p.category === category);
 
   filtered.forEach(product => {
     const div = document.createElement("div");
@@ -32,7 +34,31 @@ function openProductModal(product) {
 
   let qty = 1;
 
-  left.innerHTML = `<img src="${product.image}" style="width:100%; border-radius:10px">`;
+  const mainImage = document.createElement("img");
+  mainImage.src = product.image;
+  mainImage.style = "width:100%;border-radius:10px;object-fit:contain";
+  mainImage.id = "mainProductImage";
+
+  const thumbnails = document.createElement("div");
+  thumbnails.style = "display:flex;gap:10px;flex-direction:column;max-height:400px;overflow-y:auto;margin-right:10px";
+
+  product.images?.forEach(img => {
+    const thumb = document.createElement("img");
+    thumb.src = img;
+    thumb.style = "width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid #eee";
+    thumb.onclick = () => {
+      document.getElementById("mainProductImage").src = img;
+    };
+    thumbnails.appendChild(thumb);
+  });
+
+  const leftWrapper = document.createElement("div");
+  leftWrapper.style = "display:flex;gap:20px;flex:1;align-items:flex-start";
+  leftWrapper.appendChild(thumbnails);
+  leftWrapper.appendChild(mainImage);
+
+  left.innerHTML = "";
+  left.appendChild(leftWrapper);
 
   right.innerHTML = `
     <h2>${product.name}</h2>
@@ -74,11 +100,11 @@ function openProductModal(product) {
 
 function toggleCart(open = true) {
   const panel = document.getElementById("cart-panel");
-  if (!open) return (panel.innerHTML = "");
+  if (!panel) return;
 
+  if (!open) return (panel.innerHTML = "");
   if (!cart.length) return alert("Корзина пуста");
 
-  const products = JSON.parse(localStorage.getItem("products") || "[]");
   const count = {};
   cart.forEach(id => (count[id] = (count[id] || 0) + 1));
 
@@ -123,15 +149,9 @@ function sendOrderToWhatsApp() {
   if (!name || !phone || !city || !address) return alert("Пожалуйста, заполните все поля");
   if (!cart.length) return alert("Корзина пуста");
 
-  const products = JSON.parse(localStorage.getItem("products") || "[]");
-  let message = `🕯️ Новый заказ:
-👤 ${name}
-📞 ${phone}
-🏙️ ${city}
-🏡 ${address}
-\nТовары:\n`;
-  let total = 0;
+  let message = `🕯️ Новый заказ:\n👤 ${name}\n📞 ${phone}\n🏙️ ${city}\n🏡 ${address}\n\nТовары:\n`;
 
+  let total = 0;
   const count = {};
   cart.forEach(id => (count[id] = (count[id] || 0) + 1));
 
