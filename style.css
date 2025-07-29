@@ -1,4 +1,4 @@
-/* Шрифты и общая палитра */
+/* Шрифты и палитра */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap');
 
 :root {
@@ -47,7 +47,6 @@ nav a {
   text-decoration: none;
   color: var(--main-color);
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
   transition: color 0.2s ease;
 }
 
@@ -69,7 +68,6 @@ nav a:hover {
   margin: 0 6px;
   border-radius: 8px;
   transition: all 0.3s ease;
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
 }
 
@@ -81,40 +79,45 @@ nav a:hover {
 /* Каталог */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  padding: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  padding: 20px;
 }
 
 .product {
   background: white;
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 10px;
   box-shadow: var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
 }
 
 .product img {
   width: 100%;
-  border-radius: 10px;
-  margin-bottom: 12px;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 6px;
+  max-height: 250px;
 }
 
 .product h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25em;
-  margin: 0 0 8px;
-  color: #4b3e3d;
+  font-size: 0.95em;
+  margin: 8px 0 4px;
+  text-align: center;
 }
 
 .product p {
-  margin: 0;
+  font-size: 14px;
   color: var(--text-muted);
-  font-size: 15px;
+  text-align: center;
+  margin: 0;
 }
 
 /* Подвал */
@@ -123,7 +126,6 @@ footer .socials {
   justify-content: center;
   gap: 24px;
   margin: 50px 0;
-  font-family: 'Inter', sans-serif;
 }
 
 footer .socials a {
@@ -223,7 +225,6 @@ footer .socials a:hover {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  font-family: 'Inter', sans-serif;
 }
 
 .cart-flyout button {
@@ -251,5 +252,4 @@ footer .socials a:hover {
   border-radius: 6px;
   border: 1px solid #ddd;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
 }
